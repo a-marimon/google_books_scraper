@@ -2,8 +2,7 @@ require 'open-uri'
 require 'nokogiri'
 require 'csv'
 require 'json'
-require 'rubygems'
-require 'httparty'
+require_relative 'http_reqs'
 
 url = 'https://play.google.com/store/books/collection/cluster?clp=sgIqCiIKHHByb21vdGlvbl9lYm9va19mcmVlX3ByZXZpZXcQRBgBIgQIBQgs:S:ANO1ljKncLs&gsr=Ci2yAioKIgoccHJvbW90aW9uX2Vib29rX2ZyZWVfcHJldmlldxBEGAEiBAgFCCw%3D:S:ANO1ljLHWg0'
 url2 = 'https://play.google.com/store/books/collection/cluster?clp=8gMiCiAKGnByb21vdGlvbl9lYm9va190b3BzZWxsaW5nEEQYAQ%3D%3D:S:ANO1ljKR2RI&gsr=CiXyAyIKIAoacHJvbW90aW9uX2Vib29rX3RvcHNlbGxpbmcQRBgB:S:ANO1ljJtcVM'
@@ -30,10 +29,10 @@ def scraper(url)
     end
   end
 
-  # File.write('./books.json', JSON.dump(JSON.parse(books.to_json)))
+  http_req = Req.new
 
   books.each do |book|
-    p book
+    http_req.posts(book)
   end
 end
 
