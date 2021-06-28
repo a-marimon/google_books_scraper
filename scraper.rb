@@ -20,10 +20,9 @@ def scraper(url)
       image = book_doc.search('div.hkhL9e img.T75of')[0].attributes['src'].value
       description = book_doc.search('div.W4P4ne meta')[0].attributes['content'].value.to_s
       url = book_path
-      img_url = book_doc.search('div.oQ6oV div.hkhL9e img.T75of.h1kAub')[0].attributes['src'].value
       price = book_doc.search('span.oocvOe button.LkLjZd.ScJHi.HPiPcc.IfEcue').text[1..5].to_f
 
-      books << { :title => title, :author => author, :image => image, :description => description, :url => url, :img_url => img_url, :price => price } if !title.nil?
+      books << { :title => title, :author => author, :description => description, :url => url, :img_url => image, :price => price } if !title.nil?
       count += 1
       break if count == 10
     end
@@ -32,7 +31,7 @@ def scraper(url)
   http_req = Req.new
 
   books.each do |book|
-    http_req.posts(book)
+    p http_req.posts(book)
   end
 end
 
